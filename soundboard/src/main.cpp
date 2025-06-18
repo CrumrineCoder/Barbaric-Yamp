@@ -10,7 +10,21 @@
 
 int main()
 {
-    std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    std::filesystem::path current_dir = std::filesystem::current_path();
+
+    std::cout << "Current directory: " << current_dir << std::endl;
+
+    std::string subfolder_name = "WAV";
+
+    std::filesystem::path new_dir = current_dir / subfolder_name;
+
+    try {
+        std::filesystem::current_path(new_dir);
+        std::cout << "Changed to directory: " << std::filesystem::current_path() << std::endl;
+    }
+    catch (const std::filesystem::filesystem_error& e) {
+        std::cerr << "Error changing directory: " << e.what() << std::endl;
+    }
 
     std::vector<std::filesystem::path> audioFiles;
 
